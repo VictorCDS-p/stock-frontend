@@ -7,41 +7,52 @@ export default function SimulationPage() {
     useState<SimulationResponse | null>(null);
 
   useEffect(() => {
-    getSimulation(1).then((res) =>
+    getSimulation(51).then((res) =>
       setData(res.data)
     );
   }, []);
 
-  if (!data) return <p>Loading...</p>;
+  if (!data)
+    return <p className="p-8">Loading...</p>;
 
   return (
-    <div>
-      <h1>Production Simulation</h1>
+    <div className="min-h-screen bg-gray-100 p-8">
+      <div className="max-w-xl bg-white border border-gray-200 rounded-lg shadow-sm p-6">
 
-      <h2>{data.productName}</h2>
-      <p>
-        Max Production: <strong>{data.maxProduction}</strong> units
-      </p>
+        <h1 className="text-lg font-semibold text-gray-700 mb-6">
+          Simulation Results
+        </h1>
 
-      <h3>Materials</h3>
+        <div className="space-y-4 text-sm">
+          <p>
+            Product Name:
+            <span className="ml-2 font-medium">
+              {data.productName}
+            </span>
+          </p>
 
-      {data.materials.map((m) => (
-        <div key={m.rawMaterialId}>
           <p>
-            {m.rawMaterialName}
+            Maximum Production:
+            <span className="ml-2 text-red-500 font-semibold text-lg">
+              {data.maxProduction} Units
+            </span>
           </p>
-          <p>
-            Stock: {m.stockAvailable}
-          </p>
-          <p>
-            Required per unit: {m.requiredPerUnit}
-          </p>
-          <p>
-            Possible production: {m.possibleProduction}
-          </p>
-          <hr />
+
+          <div className="bg-gray-100 rounded-md p-4">
+            {data.materials.map((m) => (
+              <div key={m.rawMaterialId} className="mb-3">
+                <p className="font-medium">
+                  {m.rawMaterialName}
+                </p>
+                <p>Stock: {m.stockAvailable}</p>
+                <p>Required/unit: {m.requiredPerUnit}</p>
+                <p>Possible: {m.possibleProduction}</p>
+              </div>
+            ))}
+          </div>
         </div>
-      ))}
+
+      </div>
     </div>
   );
 }

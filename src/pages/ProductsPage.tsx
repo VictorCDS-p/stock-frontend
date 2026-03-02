@@ -12,59 +12,74 @@ export default function ProductsPage() {
   const [editing, setEditing] = useState<Product | null>(null);
 
   useEffect(() => {
-    let isMounted = true;
-    const load = async () => {
-      const res = await getProducts();
-      if (isMounted) setProducts(res.data);
-    };
-    load();
-    return () => { isMounted = false; };
+    getProducts().then((res) => setProducts(res.data));
   }, []);
 
+  const reload = async () => {
+    const res = await getProducts();
+    setProducts(res.data);
+  };
+
   return (
-    <div>
-      <h1>Products</h1>
+    <div className="min-h-screen bg-gray-100 p-8">
+      <div className="bg-white border border-gray-200 rounded-lg shadow-sm p-6">
 
-      <ProductForm
-        editing={editing}
-        onSuccess={async () => {
-          const res = await getProducts();
-          setProducts(res.data);
-        }}
-        clearEditing={() => setEditing(null)}
-      />
+        <h1 className="text-lg font-semibold text-gray-700 mb-6">
+          Products
+        </h1>
 
-      <table>
-        <thead>
-          <tr>
-            <th>Code</th>
-            <th>Name</th>
-            <th>Price</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {products.map((p) => (
-            <tr key={p.id}>
-              <td>{p.code}</td>
-              <td>{p.name}</td>
-              <td>{p.price}</td>
-              <td>
-                <button onClick={() => setEditing(p)}>
-                  Edit
-                </button>
-                <button
-                  onClick={() => deleteProduct(p.id!)}
-                >
-                  Delete
-                </button>
+        <ProductForm
+          editing={editing}
+          onSuccess={reload}
+          clearEditing={() => setEditing(null)}
+        />
 
-                <AddMaterialForm productId={p.id!} />
-              </td>
+        <table className="w-full text-sm">
+          <thead className="bg-gray-50 text-gray-600">
+            <tr>
+              <th className="text-left p-3">Code</th>
+              <th className="text-left p-3">Name</th>
+              <th className="text-left p-3">Price</th>
+              <th className="text-left p-3">Actions</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+
+          <tbody>
+            {products.map((p) => (
+              <tr
+                key={p.id}
+                className="border-t border-gray-200"
+              >
+                <td className="p-3">{p.code}</td>
+                <td className="p-3">{p.name}</td>
+                <td className="p-3">${p.price}</td>
+
+                <td className="p-3 space-x-2">
+                  <button
+                    onClick={() => setEditing(p)}
+                    className="bg-blue-500 text-white px-3 py-1 rounded text-xs"
+                  >
+                    Edit
+                  </button>
+
+                  <button
+                    onClick={async () => {
+                      await deleteProduct(p.id!);
+                      reload();
+                    }}
+                    className="bg-red-500 text-white px-3 py-1 rounded text-xs"
+                  >
+                    Delete
+                  </button>
+
+                  <AddMaterialForm productId={p.id!} />
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+
+      </div>
     </div>
   );
 }

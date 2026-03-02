@@ -11,64 +11,74 @@ export default function RawMaterialsPage() {
   const [editing, setEditing] = useState<RawMaterial | null>(null);
 
   const loadMaterials = async () => {
-    const response = await getRawMaterials();
-    setMaterials(response.data);
+    const res = await getRawMaterials();
+    setMaterials(res.data);
   };
 
   useEffect(() => {
-    let isMounted = true;
-    getRawMaterials().then((res) => {
-      if (isMounted) {
-        setMaterials(res.data);
-      }
-    });
-    return () => { isMounted = false; };
+    let ignore = false;
+    getRawMaterials().then((res) => { if (!ignore) setMaterials(res.data); });
+    return () => { ignore = true; };
   }, []);
 
-  const handleDelete = async (id: number) => {
-    await deleteRawMaterial(id);
-    loadMaterials();
-  };
-
   return (
-    <div>
-      <h1>Raw Materials</h1>
+    <div className="min-h-screen bg-gray-100 p-8">
+      <div className="bg-white border border-gray-200 rounded-lg shadow-sm p-6">
 
-      <RawMaterialForm
-        editing={editing}
-        onSuccess={loadMaterials}
-        clearEditing={() => setEditing(null)}
-      />
+        <h1 className="text-lg font-semibold text-gray-700 mb-6">
+          Raw Materials
+        </h1>
 
-      <table>
-        <thead>
-          <tr>
-            <th>Code</th>
-            <th>Name</th>
-            <th>Stock Quantity</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {materials.map((m) => (
-            <tr key={m.id}>
-              <td>{m.code}</td>
-              <td>{m.name}</td>
-              <td>{m.stockQuantity}</td>
-              <td>
-                <button onClick={() => setEditing(m)}>
-                  Edit
-                </button>
-                <button
-                  onClick={() => handleDelete(m.id!)}
-                >
-                  Delete
-                </button>
-              </td>
+        <RawMaterialForm
+          editing={editing}
+          onSuccess={loadMaterials}
+          clearEditing={() => setEditing(null)}
+        />
+
+        <table className="w-full text-sm">
+          <thead className="bg-gray-50 text-gray-600">
+            <tr>
+              <th className="p-3 text-left">Code</th>
+              <th className="p-3 text-left">Name</th>
+              <th className="p-3 text-left">Stock</th>
+              <th className="p-3 text-left">Actions</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+
+          <tbody>
+            {materials.map((m) => (
+              <tr
+                key={m.id}
+                className="border-t border-gray-200"
+              >
+                <td className="p-3">{m.code}</td>
+                <td className="p-3">{m.name}</td>
+                <td className="p-3">{m.stockQuantity}</td>
+
+                <td className="p-3 space-x-2">
+                  <button
+                    onClick={() => setEditing(m)}
+                    className="bg-blue-500 text-white px-3 py-1 rounded text-xs"
+                  >
+                    Edit
+                  </button>
+
+                  <button
+                    onClick={async () => {
+                      await deleteRawMaterial(m.id!);
+                      loadMaterials();
+                    }}
+                    className="bg-red-500 text-white px-3 py-1 rounded text-xs"
+                  >
+                    Delete
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+
+      </div>
     </div>
   );
 }
