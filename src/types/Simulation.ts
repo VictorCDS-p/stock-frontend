@@ -1,14 +1,12 @@
-export interface MaterialSimulation {
-  rawMaterialId: number;
-  rawMaterialName: string;
-  stockAvailable: number;
-  requiredPerUnit: number;
-  possibleProduction: number;
-}
-
-export interface SimulationResponse {
+export interface ProductionSimulationItem {
   productId: number;
   productName: string;
-  maxProduction: number;
-  materials: MaterialSimulation[];
+  quantity: number;
+  unitPrice: number;
+  totalValue: number;
+}
+
+export interface ProductionSimulationResponse {
+  items: ProductionSimulationItem[];
+  totalProductionValue: number;
 }

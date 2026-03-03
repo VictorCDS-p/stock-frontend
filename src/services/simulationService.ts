@@ -1,7 +1,7 @@
 import api from "../api/api";
-import type { SimulationResponse } from "../types/Simulation";
+import type { ProductionSimulationResponse } from "../types/Simulation";
 
-export const getSimulation = (productId: number) =>
-  api.get<SimulationResponse>(
-    `/production/${productId}/simulation`
+export const getSimulation = () =>
+  api.get<ProductionSimulationResponse>(
+    "/production/simulation"
   );
