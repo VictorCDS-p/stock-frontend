@@ -115,7 +115,7 @@ All services automatically point to `VITE_API_BASE_URL` from `.env`.
 
 ## Repository
 
-The frontend source code is available at:
+The backend source code is available at:
 
 [https://github.com/VictorCDS-p/stock-control-api](https://github.com/VictorCDS-p/stock-control-api)
 
