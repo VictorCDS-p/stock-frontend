@@ -141,6 +141,3 @@ The backend source code is available at:
 5. Open a pull request.
 
 ---
-
-Quer que eu faça isso?
-```
