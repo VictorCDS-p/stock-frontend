@@ -1,74 +1,146 @@
-# React + TypeScript + Vite
+````markdown
+# Stock Control Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A **React + TypeScript** frontend for managing products, raw materials, and production simulations.  
+Built with **Vite**, **TailwindCSS**, and **Axios** to consume the Stock Control API.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Table of Contents
 
-## React Compiler
+- [Features](#features)
+- [Tech Stack](#tech-stack)
+- [Environment Setup](#environment-setup-env)
+- [Running the Frontend](#running-the-frontend)
+- [Project Structure](#project-structure)
+- [Pages & Components](#pages--components)
+- [API Integration](#api-integration)
+- [Repository](#repository)
+- [Scripts](#scripts)
+- [Contributing](#contributing)
+- [License](#license)
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the ESLint configuration
+## Features
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- List, create, update, and delete **Products**.
+- List, create, update, and delete **Raw Materials**.
+- Add raw materials to products.
+- Search and pagination support.
+- View **Production Simulation** results.
+- Responsive UI with **TailwindCSS**.
+- Fetch data from backend using **Axios**.
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+---
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## Tech Stack
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+- **Language:** TypeScript  
+- **Framework:** React 19  
+- **Bundler:** Vite  
+- **CSS:** TailwindCSS 3  
+- **API Client:** Axios  
+- **Routing:** React Router DOM 7  
+
+---
+
+## Environment Setup (.env)
+
+Create a `.env` file in the root directory of the frontend project:
+
+```env
+VITE_API_BASE_URL=http://localhost:8080
+````
+
+> ⚠️ Make sure the backend is running and accessible at the specified URL.
+
+---
+
+## Running the Frontend
+
+Install dependencies:
+
+```bash
+npm install
+# or
+yarn install
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Start development server:
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm run dev
+# or
+yarn dev
 ```
-# stock-frontend
+
+Open in browser:
+
+```
+http://localhost:5173
+```
+
+> Vite automatically reloads the app on code changes.
+
+---
+## Pages & Components
+
+### Pages
+
+* **ProductsPage.tsx:** List, search, edit, delete, and create products. Supports pagination and modal forms.
+* **RawMaterialsPage.tsx:** Manage raw materials. Similar features as products.
+* **SimulationPage.tsx:** Displays production simulation results including total production value.
+
+### Components
+
+* **Modal:** Generic modal wrapper.
+* **Pagination:** Handles pagination UI and page changes.
+* **ProductForm / RawMaterialForm:** Forms for creating/updating entities.
+* **AddMaterialForm:** Add raw materials to products.
+
+---
+
+## API Integration
+
+API services are defined in `src/services/` using **Axios**:
+
+* `productService.ts` → `/products` endpoints
+* `rawMaterialService.ts` → `/raw-materials` endpoints
+* `simulationService.ts` → `/production/simulation` endpoint
+
+All services automatically point to `VITE_API_BASE_URL` from `.env`.
+
+---
+
+## Repository
+
+The frontend source code is available at:
+
+[https://github.com/VictorCDS-p/stock-control-api](https://github.com/VictorCDS-p/stock-control-api)
+
+---
+
+## Scripts
+
+| Script            | Description                          |
+| ----------------- | ------------------------------------ |
+| `npm run dev`     | Starts Vite development server       |
+| `npm run build`   | Builds the project for production    |
+| `npm run preview` | Preview the production build locally |
+| `npm run lint`    | Runs ESLint to check code quality    |
+
+---
+
+## Contributing
+
+1. Fork the repository.
+2. Create a branch for your feature: `git checkout -b feature-name`.
+3. Commit your changes: `git commit -m "Add feature"`.
+4. Push to branch: `git push origin feature-name`.
+5. Open a pull request.
+
+---
+
+Quer que eu faça isso?
+```
