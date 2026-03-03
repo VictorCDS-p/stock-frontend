@@ -12,13 +12,11 @@ Built with **Vite**, **TailwindCSS**, and **Axios** to consume the Stock Control
 - [Tech Stack](#tech-stack)
 - [Environment Setup](#environment-setup-env)
 - [Running the Frontend](#running-the-frontend)
-- [Project Structure](#project-structure)
 - [Pages & Components](#pages--components)
 - [API Integration](#api-integration)
 - [Repository](#repository)
 - [Scripts](#scripts)
 - [Contributing](#contributing)
-- [License](#license)
 
 ---
 
