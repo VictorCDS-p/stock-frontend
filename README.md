@@ -42,15 +42,6 @@ Built with **Vite**, **TailwindCSS**, and **Axios** to consume the Stock Control
 - **Routing:** React Router DOM 7  
 
 ---
-
-## Environment Setup (.env)
-
-Create a `.env` file in the root directory of the frontend project:
-
-```env
-VITE_API_BASE_URL=http://localhost:8080
-````
-
 > ⚠️ Make sure the backend is running and accessible at the specified URL.
 
 ---
