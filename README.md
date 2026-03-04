@@ -43,7 +43,6 @@ Built with **Vite**, **TailwindCSS**, and **Axios** to consume the Stock Control
 
 ---
 > ⚠️ Make sure the backend is running and accessible at the specified URL.
-
 ---
 
 ## Running the Frontend
